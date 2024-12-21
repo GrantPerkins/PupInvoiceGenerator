@@ -9,6 +9,7 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.popup import Popup
 from kivy.uix.filechooser import FileChooserListView
+from kivy.metrics import dp
 
 from invoice_generator import InvoiceGenerator
 from pup_invoice_data import PupInvoiceData
@@ -21,21 +22,21 @@ class InvoiceAppGUI(App):
         self.root = BoxLayout(orientation='vertical', padding=10, spacing=10)
 
         # Add Heading at the top
-        heading_label = Label(text="Invoice Generator", font_size=24, bold=True, size_hint_y=None, height=40)
+        heading_label = Label(text="Invoice Generator", font_size=24, bold=True, size_hint_y=None, height=dp(40))
         self.root.add_widget(heading_label)
 
         # Top form for Full Name and Address
-        top_form = GridLayout(cols=2, spacing=10, size_hint_y=None, height=250)
-        top_form.add_widget(Label(text="Full Name:", size_hint_x=None, width=100))
+        top_form = GridLayout(cols=2, spacing=10, size_hint_y=None, height=dp(250))
+        top_form.add_widget(Label(text="Full Name:", size_hint_x=None, width=dp(100)))
         self.full_name_input = TextInput(hint_text="Enter full name", multiline=False)
         top_form.add_widget(self.full_name_input)
-        top_form.add_widget(Label(text="Address:", size_hint_x=None, width=100))
-        self.address_input = TextInput(hint_text="Enter address (can be multiple lines)", multiline=True, size_hint_y=None, height=80)
+        top_form.add_widget(Label(text="Address:", size_hint_x=None, width=dp(100)))
+        self.address_input = TextInput(hint_text="Enter address (can be multiple lines)", multiline=True, size_hint_y=None, height=dp(80))
         top_form.add_widget(self.address_input)
-        top_form.add_widget(Label(text="Invoice Number:", size_hint_x=None, width=100))
+        top_form.add_widget(Label(text="Invoice Number:", size_hint_x=None, width=dp(100)))
         self.invoice_no_input = TextInput(hint_text="Enter invoice number", multiline=False)
         top_form.add_widget(self.invoice_no_input)
-        top_form.add_widget(Label(text="Discount:", size_hint_x=None, width=100))
+        top_form.add_widget(Label(text="Discount:", size_hint_x=None, width=dp(100)))
         self.discount_input = TextInput(hint_text="Enter discount (leave blank if none)", multiline=False, input_filter='float')
         top_form.add_widget(self.discount_input)
 
@@ -63,9 +64,9 @@ class InvoiceAppGUI(App):
 
         # Bottom control layout
         control_layout = BoxLayout(size_hint=(1, None), height=50, spacing=10)
-        add_button = Button(text="Add Row", size_hint=(None, None), size=(150, 50))
+        add_button = Button(text="Add Row", size_hint=(None, None), size=(dp(150), dp(50)))
         add_button.bind(on_press=lambda x: self.add_row())
-        submit_button = Button(text="Submit", size_hint=(None, None), size=(150, 50))
+        submit_button = Button(text="Submit", size_hint=(None, None), size=(dp(150), dp(50)))
         submit_button.bind(on_press=lambda x: self.on_submit())
 
         control_layout.add_widget(add_button)
