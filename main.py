@@ -22,7 +22,7 @@ class InvoiceAppGUI(App):
         self.root = BoxLayout(orientation='vertical', padding=10, spacing=10)
 
         # Add Heading at the top
-        heading_label = Label(text="Invoice Generator", font_size=24, bold=True, size_hint_y=None, height=dp(40))
+        heading_label = Label(text="Invoice Generator", font_size=dp(24), bold=True, size_hint_y=None, height=dp(40))
         self.root.add_widget(heading_label)
 
         # Top form for Full Name and Address
@@ -43,7 +43,7 @@ class InvoiceAppGUI(App):
         self.root.add_widget(top_form)
 
         # Header layout
-        header_layout = GridLayout(cols=5, spacing=5, size_hint_y=None, height=40)
+        header_layout = GridLayout(cols=5, spacing=5, size_hint_y=None, height=dp(40))
         headers = ['Description', 'Date', 'Hours', 'Total', 'Actions']
         for header in headers:
             header_layout.add_widget(Label(text=header, bold=True))
@@ -63,7 +63,7 @@ class InvoiceAppGUI(App):
         self.add_row()  # Add an initial row
 
         # Bottom control layout
-        control_layout = BoxLayout(size_hint=(1, None), height=50, spacing=10)
+        control_layout = BoxLayout(size_hint=(1, None), height=dp(50), spacing=dp(10))
         add_button = Button(text="Add Row", size_hint=(None, None), size=(dp(150), dp(50)))
         add_button.bind(on_press=lambda x: self.add_row())
         submit_button = Button(text="Submit", size_hint=(None, None), size=(dp(150), dp(50)))
@@ -87,20 +87,20 @@ class InvoiceAppGUI(App):
             self.table.add_widget(row[key])
 
         # Add delete button for the row
-        delete_button = Button(text="X", size_hint=(None, None), size=(40, 40))
+        delete_button = Button(text="X", size_hint=(None, None), size=(dp(40), dp(40)))
         delete_button.bind(on_press=lambda instance: self.delete_row(row))
         self.table.add_widget(delete_button)
         row['delete_button'] = delete_button
 
         self.rows.append(row)
-        self.table.height += 40  # Adjust height for new row
+        self.table.height += dp(40)  # Adjust height for new row
 
     def delete_row(self, row):
         # Remove the row widgets
         for key in ['description', 'date', 'hours', 'total', 'delete_button']:
             self.table.remove_widget(row[key])
         self.rows.remove(row)
-        self.table.height -= 40  # Adjust height for deleted row
+        self.table.height -= dp(40)  # Adjust height for deleted row
 
     def on_submit(self):
         # Print the full name and address
@@ -121,9 +121,9 @@ class InvoiceAppGUI(App):
     def show_error_popup(self):
         # Create a popup to show the saved file path
         content = BoxLayout(orientation='vertical', padding=10)
-        content.add_widget(Label(text="There is likely an empty box. Please review.", font_size=16))
+        content.add_widget(Label(text="There is likely an empty box. Please review.", font_size=dp(16)))
 
-        close_button = Button(text="Close", size_hint=(1, None), height=50)
+        close_button = Button(text="Close", size_hint=(1, None), height=dp(50))
         content.add_widget(close_button)
 
         popup = Popup(title="Error",
@@ -148,10 +148,10 @@ class InvoiceAppGUI(App):
         file_chooser = FileChooserListView(path=downloads_folder)
         content.add_widget(file_chooser)
 
-        save_button = Button(text="Save", size_hint=(1, None), height=50)
-        cancel_button = Button(text="Cancel", size_hint=(1, None), height=50)
+        save_button = Button(text="Save", size_hint=(1, None), height=dp(50))
+        cancel_button = Button(text="Cancel", size_hint=(1, None), height=dp(50))
 
-        button_layout = BoxLayout(size_hint=(1, None), height=50)
+        button_layout = BoxLayout(size_hint=(1, None), height=dp(50))
         button_layout.add_widget(save_button)
         button_layout.add_widget(cancel_button)
 
@@ -178,9 +178,9 @@ class InvoiceAppGUI(App):
     def show_file_path_popup(self, file_path):
         # Create a popup to show the saved file path
         content = BoxLayout(orientation='vertical', padding=10)
-        content.add_widget(Label(text=f"File saved to:\n{file_path}", font_size=16))
+        content.add_widget(Label(text=f"File saved to:\n{file_path}", font_size=dp(16)))
 
-        close_button = Button(text="Close", size_hint=(1, None), height=50)
+        close_button = Button(text="Close", size_hint=(1, None), height=dp(50))
         content.add_widget(close_button)
 
         popup = Popup(title="File Saved",
