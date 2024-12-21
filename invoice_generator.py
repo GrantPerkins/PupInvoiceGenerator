@@ -84,7 +84,7 @@ class InvoiceGenerator:
         for row in self.invoice_data.items:
             total += float(row.total)
 
-        if self.invoice_data.discount is not None and float(self.invoice_data.discount) > 0:
+        if self.invoice_data.discount != '' and float(self.invoice_data.discount) > 0:
             data.append(["", "", "Subtotal:", f"{total:.2f}"])
             data.append(["", "", "Discount:", f"-{float(self.invoice_data.discount):.2f}"])
             total -= float(self.invoice_data.discount)

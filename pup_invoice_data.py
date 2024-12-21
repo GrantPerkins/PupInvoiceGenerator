@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 class PupInvoiceData:
     def __init__(self, name, address, discount, invoice_no, rows):
         self.name = name
-        self.address = address
-        self.discount = discount
-        self.invoice_no = invoice_no
+        self.address = address.strip()
+        self.discount = discount.strip()
+        self.invoice_no = invoice_no.strip()
         self.date = datetime.today()
         self.due_date = (self.date + timedelta(days=5)).strftime('%m-%d-%Y')
         self.date = self.date.strftime('%m-%d-%Y')
@@ -16,10 +16,10 @@ class PupInvoiceData:
 
 class PupInvoiceItem:
     def __init__(self, row):
-        self.description = row['description'].text
-        self.date = row['date'].text
-        self.hours = row['hours'].text
-        self.total = row['total'].text
+        self.description = row['description'].text.strip()
+        self.date = row['date'].text.strip()
+        self.hours = row['hours'].text.strip()
+        self.total = row['total'].text.strip()
         self.row_list = [self.description, self.date, self.hours, f"{float(self.total):.2f}"]
 
 
