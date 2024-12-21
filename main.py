@@ -107,9 +107,30 @@ class InvoiceAppGUI(App):
         address = self.address_input.text
         discount = self.discount_input.text
         invoice_no = self.invoice_no_input.text
-        data = PupInvoiceData(full_name, address, discount, invoice_no, self.rows)
+        try:
+            data = PupInvoiceData(full_name, address, discount, invoice_no, self.rows)
+            self.show_file_chooser(data)
+        except:
+            import traceback
+            traceback.print_exc()
+            self.show_error_popup()
 
-        self.show_file_chooser(data)
+
+
+    def show_error_popup(self):
+        # Create a popup to show the saved file path
+        content = BoxLayout(orientation='vertical', padding=10)
+        content.add_widget(Label(text="There is likely an empty box. Please review.", font_size=16))
+
+        close_button = Button(text="Close", size_hint=(1, None), height=50)
+        content.add_widget(close_button)
+
+        popup = Popup(title="Error",
+                      content=content,
+                      size_hint=(0.8, 0.4))
+
+        close_button.bind(on_press=popup.dismiss)
+        popup.open()
 
     def show_file_chooser(self, data):
         # Get the path to the user's Downloads folder
