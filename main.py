@@ -2,6 +2,7 @@ import os
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
+
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
@@ -19,19 +20,19 @@ class InvoiceAppGUI(App):
     def build(self):
         self.title = "Kylee's K9s Invoice Generator"
         # Root layout
-        self.root = BoxLayout(orientation='vertical', padding=10, spacing=10)
+        self.root = BoxLayout(orientation='vertical', padding=10, spacing=10, size=(dp(800),dp(1000)))
 
         # Add Heading at the top
         heading_label = Label(text="Invoice Generator", font_size=dp(24), bold=True, size_hint_y=None, height=dp(40))
         self.root.add_widget(heading_label)
 
         # Top form for Full Name and Address
-        top_form = GridLayout(cols=2, spacing=10, size_hint_y=None, height=dp(250))
+        top_form = GridLayout(cols=2, spacing=10, size_hint_y=None, height=dp(230))
         top_form.add_widget(Label(text="Full Name:", size_hint_x=None, width=dp(100)))
         self.full_name_input = TextInput(hint_text="Enter full name", multiline=False)
         top_form.add_widget(self.full_name_input)
         top_form.add_widget(Label(text="Address:", size_hint_x=None, width=dp(100)))
-        self.address_input = TextInput(hint_text="Enter address (can be multiple lines)", multiline=True, size_hint_y=None, height=dp(80))
+        self.address_input = TextInput(hint_text="Enter address (can be multiple lines)", multiline=True, height=dp(80))
         top_form.add_widget(self.address_input)
         top_form.add_widget(Label(text="Invoice Number:", size_hint_x=None, width=dp(100)))
         self.invoice_no_input = TextInput(hint_text="Enter invoice number", multiline=False)
@@ -44,14 +45,14 @@ class InvoiceAppGUI(App):
 
         # Header layout
         header_layout = GridLayout(cols=5, spacing=5, size_hint_y=None, height=dp(40))
-        headers = ['Description', 'Date', 'Hours', 'Total', 'Actions']
+        headers = ['Description', 'Date', '      Hours', '                 Total', '']
         for header in headers:
             header_layout.add_widget(Label(text=header, bold=True))
         self.root.add_widget(header_layout)
 
         # Scrollable table layout
-        scroll_view = ScrollView(size_hint=(1, 1))
-        self.table = GridLayout(cols=5, spacing=5, size_hint_y=None)
+        scroll_view = ScrollView(size_hint=(1, 1), height=dp(800))
+        self.table = GridLayout(cols=5, spacing=5, size_hint_y=None, height=dp(400))
         self.table.bind(minimum_height=self.table.setter('height'))
         scroll_view.add_widget(self.table)
 
